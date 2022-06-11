@@ -1,6 +1,6 @@
 /*************************************************************************
 *
-* Copyright (C) 2016-2021 Mediator Software and/or its subsidiary(-ies).
+* Copyright (C) 2016-2022 Mediator Software and/or its subsidiary(-ies).
 * All rights reserved.
 * Contact: Mediator Software (info@mediator-software.com)
 *
@@ -120,6 +120,9 @@ public:
 	/** Enable/disable device orientation tracking **/
 	void EnableDeviceOrientation(bool enable);
 
+	/** Enable/disable device orientation drift correction **/
+	void EnableDeviceDriftCorrection(bool enable);
+
 	/** Enable/disable tracking LEDs (if any) **/
 	void EnableDeviceLeds(bool enable);
 
@@ -129,6 +132,9 @@ public:
 protected:
 	/** Device orientation has been enabled/disabled by user **/
 	virtual void OnDeviceOrientationEnabled(bool enable) {}
+
+	/** Drift correction has been enabled/disabled by user **/
+	virtual void OnDriftCorrectionEnabled(bool enable) {}
 
 	/** Pose has been recevied from driver **/
 	virtual void OnDevicePoseUpdated(const vr::DriverPose_t &pose) {}
@@ -174,8 +180,14 @@ protected:
 	/** Controller tracking LED level request has been received from driver - use id 0xff for all **/
 	virtual void OnControllerLedLevel(uint32_t id, float level) {}
 
+	/** Tracking camera exposure level request has been received from driver **/
+	virtual void OnCameraExposureLevel(float level) {}
+
 	/** Debug command sent from driver **/
 	virtual void OnDebugCommand(const char *cmd) {}
+
+	/** Reload tracker settings **/
+	virtual void OnReloadSettings() {}
 
 	/** Get last error **/
 	DWORD GetLastError();
